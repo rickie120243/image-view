@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>page map</title>
+<body>
+冊頁碼:
+<input id="volpagenum" value="1.1b1"></input>
+<button onclick="linetovolpage()"><<</button>
+<button onclick="volpagetoline()">>></button>
+絕對行數:
+<input id="linenum" value=""></input>
+
+
+<script  language="JavaScript">
+var linetovolpage=function(){
+	var lineinput=document.getElementById("linenum").value;
+	var totallines=parseInt(lineinput);
+	var a=totallines%8;
+	var page=0;
+	if(a==0){
+		var page=totallines/8;
+	}
+	page=totallines/8;
+
+}
+
+var volpagetoline=function(){
+	var volpageinput=document.getElementById("volpagenum").value;
+	volpageinput=volpageinput.split('.');
+	var volpage="00"+volpageinput[1];
+	piece=volpage.substr(volpage.length-5,3);
+	side=volpage.substr(volpage.length-2,1);
+	line=volpage.substr(volpage.length-1,1);
+//	console.log(piece,side,line);
+	piece=parseInt(piece);
+	line=parseInt(line);
+	var page_line=(piece-1)*2;
+	if(side=="a"){
+		page_line=page_line+0;
+	}else{
+		page_line=page_line+1;
+	}
+	var totallines=page_line*8+line;
+//	console.log(totallines);
+	document.getElementById("linenum").value=totallines;
+}
+
+</script>
+</body>
+</html>
