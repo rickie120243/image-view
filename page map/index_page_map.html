@@ -58,9 +58,10 @@ var volpagetoline=function(){
 	piece=parseInt(piece);
 	line=parseInt(line);
 	var page=(piece-1)*pagesperpiece;
+	var totallines;
 	if(side=="a"){
 		if(page==0){
-			var totallines="not exist,start from 1.1b1";
+			totallines="not exist,start from 1.1b1";
 		}else{
 			page=page+0;
 			totallines=page*linesperpage+line-8;
