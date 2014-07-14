@@ -8,8 +8,11 @@
 <button onclick="linetovolpage()"><<</button>
 <button onclick="volpagetoline()">>></button>
 絕對行數:
-<input id="linenum" value="9"></input>
-
+<input id="linenum" value="1"></input>
+<br><hr width="100%"><br>
+輸入冊頁碼:<input id="tofindrange_volpagenum" value="1.1b1"></input>
+<button onclick="tofindrange()">冊頁碼範圍</button><br>
+<span id="rangetop_volpage">
 
 <script  language="JavaScript">
 var bomponum=1;//
@@ -18,7 +21,7 @@ var pagesperpiece=2;// 1張紙2頁
 
 var linetovolpage=function(){
 	var lineinput=document.getElementById("linenum").value;
-	var totallines=parseInt(lineinput);
+	var totallines=parseInt(lineinput)+8;
 	var a=totallines%linesperpage;
 	var page,line,piece,side;
 //	var line;
@@ -56,11 +59,16 @@ var volpagetoline=function(){
 	line=parseInt(line);
 	var page=(piece-1)*pagesperpiece;
 	if(side=="a"){
-		page=page+0;
+		if(page==0){
+			var totallines="not exist,start from 1.1b1";
+		}else{
+			page=page+0;
+			totallines=page*linesperpage+line-8;
+		}
 	}else{
 		page=page+1;
+		totallines=page*linesperpage+line-8;
 	}
-	var totallines=page*linesperpage+line;
 //	console.log(totallines);
 	document.getElementById("linenum").value=totallines;
 }
