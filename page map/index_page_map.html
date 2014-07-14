@@ -8,20 +8,39 @@
 <button onclick="linetovolpage()"><<</button>
 <button onclick="volpagetoline()">>></button>
 絕對行數:
-<input id="linenum" value=""></input>
+<input id="linenum" value="9"></input>
 
 
 <script  language="JavaScript">
+var bomponum=1;//
+var linesperpage=8;// 1頁8行
+var pagesperpiece=2;// 1張紙2頁
+
 var linetovolpage=function(){
 	var lineinput=document.getElementById("linenum").value;
 	var totallines=parseInt(lineinput);
-	var a=totallines%8;
-	var page=0;
+	var a=totallines%linesperpage;
+	var page,line,piece,side;
+//	var line;
 	if(a==0){
-		var page=totallines/8;
+		page=totallines/linesperpage;
+		line=linesperpage;
+	}else{
+		page=(totallines-a)/linesperpage+1;
+		line=a;
 	}
-	page=totallines/8;
-
+	a=page%pagesperpiece;
+//	var piece;
+//	var side;
+	if(a==0){
+		piece=page/pagesperpiece;
+		side="b";
+	}else{
+		piece=(page-a)/pagesperpiece+1;
+		side="a";
+	}
+//	console.log(piece,side,line);
+	document.getElementById("volpagenum").value=bomponum+"."+piece+side+line;
 
 }
 
@@ -35,13 +54,13 @@ var volpagetoline=function(){
 //	console.log(piece,side,line);
 	piece=parseInt(piece);
 	line=parseInt(line);
-	var page=(piece-1)*2;
+	var page=(piece-1)*pagesperpiece;
 	if(side=="a"){
 		page=page+0;
 	}else{
 		page=page+1;
 	}
-	var totallines=page*8+line;
+	var totallines=page*linesperpage+line;
 //	console.log(totallines);
 	document.getElementById("linenum").value=totallines;
 }
