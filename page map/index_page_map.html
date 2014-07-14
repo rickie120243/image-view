@@ -22,6 +22,7 @@ var linetovolpage=function(){
 	}
 	page=totallines/8;
 
+
 }
 
 var volpagetoline=function(){
@@ -34,13 +35,13 @@ var volpagetoline=function(){
 //	console.log(piece,side,line);
 	piece=parseInt(piece);
 	line=parseInt(line);
-	var page_line=(piece-1)*2;
+	var page=(piece-1)*2;
 	if(side=="a"){
-		page_line=page_line+0;
+		page=page+0;
 	}else{
-		page_line=page_line+1;
+		page=page+1;
 	}
-	var totallines=page_line*8+line;
+	var totallines=page*8+line;
 //	console.log(totallines);
 	document.getElementById("linenum").value=totallines;
 }
