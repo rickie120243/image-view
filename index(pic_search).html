@@ -1,0 +1,138 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>image view</title>
+<body>
+<input id="inputLijang" value="1.1a"></input>
+<button onclick="searchLijang()">Lijang search</button><br>
+<input id="inputLhasa" value="1.1b"></input>
+<button onclick="searchLhasa()">Lhasa search</button>
+<br>
+Lijang result:
+<button onclick="previous1()">Previous Page</button>
+<span id="part1"></span>
+<button onclick="next1()">Next Page</button>
+<img id="image1" style="width:100%"></img><br>
+
+Lhasa  result:
+<button onclick="previous2()">Previous Page</button>
+<span id="part2" ></span>
+<button onclick="next2()">Next Page</button>
+<img id="image2" style="width:100%"></img>
+<script  language="JavaScript">
+var previous1=function(){
+	var input1=document.getElementById("part1").innerHTML;
+	var r=todopre(input1);
+	image1.src="Lijang image/001/"+r[0]+"-"+r[1]+".jpg";
+	document.getElementById("part1").innerHTML=r[0]+'-'+r[1];
+}
+
+var previous2=function(){
+	var input2=document.getElementById("part2").innerHTML;
+	var r=todopre(input2);
+	image2.src="Lhasa image/001/"+r[0]+"-"+r[1]+".png";
+	document.getElementById("part2").innerHTML=r[0]+'-'+r[1];
+}
+
+var todopre=function(input){
+	if (input==""){
+		alert("請先搜尋一張圖");
+	}else{
+		var s=input.split("-");
+		var page=s[1].substr(0,3);
+		var side=s[1].substr(3);
+//		console.log(page,side);
+		page=page-0;
+//		page=parseInt(page);
+		if(side=="a"){
+			side="b";
+			page=page-1;
+			if(page==0){
+				alert("這是第一張圖，無法再上一頁");
+				page=page+1;
+				side="a"
+			}
+		}else{
+			side="a";
+		}		
+		page="00"+page;
+		page=page.substr(page.length-3);
+		return [s[0],page+side];
+	}
+}
+
+var next1=function(){
+	var input1=document.getElementById("part1").innerHTML;
+	r=todonext(input1);
+	image1.src="Lijang image/001/"+r[0]+"-"+r[1]+".jpg";
+	document.getElementById("part1").innerHTML=r[0]+'-'+r[1];
+}
+
+var next2=function(){
+	var input2=document.getElementById("part2").innerHTML;
+	r=todonext(input2);
+	image2.src="Lhasa image/001/"+r[0]+"-"+r[1]+".png";
+	document.getElementById("part2").innerHTML=r[0]+'-'+r[1];
+}
+
+var todonext=function(input){
+	if (input==""){
+		alert("請先搜尋一張圖");
+	}else{
+		var s=input.split("-");
+		var page=s[1].substr(0,3);
+		var side=s[1].substr(3);
+//		console.log(page,side);
+		page=page-0;
+//		page=parseInt(page);
+		if(side=="b"){
+			side="a";
+			page=page+1;
+			if(page==316){
+				alert("這是最後一張圖，無法再下一頁");
+				page=page-1;
+				side="b"
+			}
+		}else{
+			side="b";
+		}		
+		page="00"+page;
+		page=page.substr(page.length-3);
+		return [s[0],page+side];
+	}
+}
+
+var searchLijang=function(){
+	var volpage=document.getElementById("inputLijang").value;
+	//console.log(q);
+	if(volpage==""){
+		alert("請輸入圖片頁碼")
+	}else{
+		r=idtofilename(volpage);
+		image1.src="Lijang image/001/"+r[0]+"-"+r[1]+".jpg";
+		document.getElementById("part1").innerHTML=r[0]+'-'+r[1];
+	}
+}
+
+var searchLhasa=function(){
+	var volpage=document.getElementById("inputLhasa").value;
+	if(volpage==""){
+		alert("請輸入圖片頁碼")
+	}else{
+		r=idtofilename(volpage);
+		image2.src="Lhasa image/001/"+r[0]+"-"+r[1]+".png";
+		document.getElementById("part2").innerHTML=r[0]+'-'+r[1];
+	}
+}
+
+var idtofilename=function(id){
+	var s=id.split(".");
+	var s1="00"+s[0];
+	var s2="00"+s[1];
+	s1=s1.substr(s1.length-3);
+	s2=s2.substr(s2.length-4);
+	return [s1,s2];
+}
+</script>
+</body>
+</html>
